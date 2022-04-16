@@ -1,0 +1,253 @@
+/* Colors */
+
+$brightColor: #7086a9;
+$sharkColor: #25282f;
+$darkColor: #162338;
+
+/* Global Rules */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+body {
+  background-color: $darkColor;
+  background-size: cover;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Loading */
+.loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: $sharkColor;
+  top: 0;
+  left: 0;
+  z-index: 15454;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    * {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+    .spinner-light {
+      border-right: 10px solid $brightColor;
+      border-left: 10px solid $brightColor;
+      animation: rotate-loading 2s infinite linear;
+      animation-fill-mode: forwards;
+    }
+    .spinner-dark {
+      border-top: 10px solid $darkColor;
+      border-bottom: 10px solid $darkColor;
+      position: absolute;
+      left: 0;
+      top: 0;
+      animation-fill-mode: forwards;
+      animation: rotate-loading 2s infinite linear;
+    }
+    p {
+      font-size: 25px;
+      font-weight: bold;
+      margin-top: 50px;
+      text-align: center;
+    }
+  }
+}
+
+// Loading Animation
+@keyframes rotate-loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Styling App */
+
+.app {
+  background-color: rgba($sharkColor, 0.8);
+  padding: 40px;
+  .app-body {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    background-color: rgba($brightColor, 0.4);
+    border-radius: 5px;
+    .current {
+      background-color: $sharkColor;
+      height: 100%;
+      padding: 15px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      &-icon {
+        font-size: 100px;
+        text-align: center;
+        color: $brightColor;
+      }
+      &-temp {
+        color: lighten($brightColor, 30%);
+        font-weight: bold;
+        font-size: 25px;
+        text-align: center;
+        .temp {
+          display: inline-block;
+          margin-bottom: 15px;
+        }
+      }
+      &-location,
+      &-date {
+        font-size: 20px;
+        background-color: rgba($brightColor, 0.2);
+        padding: 20px 10px;
+        margin-top: 10px;
+        text-align: center;
+      }
+    }
+    // Wrapper
+    .wrapper {
+      padding: 20px;
+
+      .search-bar {
+        text-align: center;
+        margin-bottom: 20px;
+        input {
+          padding: 10px;
+          font-size: 20px;
+          color: $brightColor;
+          width: 80%;
+          border: none;
+          border-bottom: 2px solid $sharkColor;
+          background-color: transparent;
+          &::placeholder {
+            transition: all 0.5s ease-in-out;
+            position: relative;
+            top: 0;
+            left: 5px;
+          }
+          &:focus {
+            outline: none;
+            &::placeholder {
+              font-size: 10px;
+              top: -15px;
+            }
+          }
+        }
+      }
+      .current-details {
+        padding: 50px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 20px;
+        .details-box {
+          text-align: center;
+          border-radius: 5px;
+          color: lighten($sharkColor, 50%);
+          padding: 10px;
+          border: 2px solid $brightColor;
+          i {
+            font-size: 35px;
+            color: $brightColor;
+          }
+          .heading {
+            font-size: 22px;
+            margin: 15px 0;
+          }
+          .description {
+            margin: 8px 0;
+            font-size: 16px;
+            font-weight: bold;
+          }
+        }
+      }
+      // Forecast
+      .forecast {
+        display: flex;
+        justify-content: space-evenly;
+        &-box {
+          padding: 30px 50px;
+          border-radius: 5px;
+          text-align: center;
+          background-color: rgba($darkColor, 0.5);
+          box-shadow: 6px 9px 20px 0px $darkColor;
+          .forecast-icon {
+            margin: 10px 0;
+          }
+          .forecast-temp {
+            line-height: 1.7;
+            color: #aaa;
+            span {
+              color: $brightColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Media Queries
+@media (max-width: 767px) {
+  .current-details {
+    padding: 10px !important;
+  }
+}
+
+@media (max-width: 950px) {
+  .app .app-body .wrapper .forecast {
+    justify-content: space-between;
+    .forecast-box {
+      padding: 20px 35px;
+    }
+  }
+}
+
+@media (max-width: 761px) {
+  .app .app-body .wrapper .forecast {
+    flex-direction: column;
+  }
+}
+@media (min-width: 501px) and (max-width: 792px) {
+  .app .app-body .wrapper .current-details {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 550px) {
+  .app .app-body .wrapper .current-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .app .app-body .wrapper .forecast {
+    flex-wrap: wrap;
+    &-box {
+      margin: 10px auto;
+      &:last-child {
+        margin: 10px auto;
+      }
+    }
+  }
+}
