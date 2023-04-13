@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SearchBar from "./SearchBar";
 import Current from "./Current";
@@ -19,7 +19,7 @@ const App = () => {
 
   const fetchData = async (searchTerm) => {
     const { data } = await axios
-      .get("http://api.weatherapi.com/v1/forecast.json", {
+      .get("https://api.weatherapi.com/v1/forecast.json", {
         params: {
           key: "6e985db4fad3466c93d215348220504",
           q: searchTerm,
